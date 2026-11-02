@@ -67,13 +67,13 @@ class SettingsController extends Controller
             $config->save();
         }
 
-        return back()->with('success', 'Google OAuth credentials saved.');
+        return back()->with('success', 'Credenciales de Google OAuth guardadas.');
     }
 
     public function connectGoogle(Request $request, GoogleClientFactory $clients): RedirectResponse
     {
         $config = ProviderConfig::globalGoogle();
-        abort_unless($config, 422, 'Configure Google OAuth credentials first.');
+        abort_unless($config, 422, 'Configura primero las credenciales de Google OAuth.');
 
         $state = Str::random(40);
         OauthState::query()->create([
@@ -161,7 +161,7 @@ class SettingsController extends Controller
             return redirect()->route('files.index');
         }
 
-        return redirect()->route('settings.index')->with('success', 'Google Drive connected.');
+        return redirect()->route('settings.index')->with('success', 'Google Drive conectado.');
     }
 
     public function disconnectAccount(Request $request, ConnectedAccount $account): RedirectResponse
@@ -173,13 +173,13 @@ class SettingsController extends Controller
             'refresh_token_encrypted' => null,
         ]);
 
-        return back()->with('success', 'Account disconnected.');
+        return back()->with('success', 'Cuenta desconectada.');
     }
 
     public function googleLogin(GoogleClientFactory $clients): RedirectResponse
     {
         $config = ProviderConfig::globalGoogle();
-        abort_unless($config, 422, 'Configure Google OAuth credentials first.');
+        abort_unless($config, 422, 'Configura primero las credenciales de Google OAuth.');
 
         $state = Str::random(40);
         OauthState::query()->create([

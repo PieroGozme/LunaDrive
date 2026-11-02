@@ -12,9 +12,16 @@ const props = defineProps({
     },
     contentClasses: {
         type: String,
-        default: 'py-1 bg-white dark:bg-gray-700',
+        default: 'py-1 bg-white',
+    },
+    /** bottom | top | right */
+    placement: {
+        type: String,
+        default: 'bottom',
     },
 });
+
+const open = ref(false);
 
 const closeOnEscape = (e) => {
     if (open.value && e.key === 'Escape') {
@@ -31,17 +38,28 @@ const widthClass = computed(() => {
     }[props.width.toString()];
 });
 
-const alignmentClasses = computed(() => {
-    if (props.align === 'left') {
-        return 'ltr:origin-top-left rtl:origin-top-right start-0';
-    } else if (props.align === 'right') {
-        return 'ltr:origin-top-right rtl:origin-top-left end-0';
-    } else {
-        return 'origin-top';
+const positionClasses = computed(() => {
+    if (props.placement === 'top') {
+        if (props.align === 'left') {
+            return 'bottom-full left-0 mb-2 origin-bottom-left';
+        }
+        return 'bottom-full right-0 mb-2 origin-bottom-right';
     }
-});
 
-const open = ref(false);
+    if (props.placement === 'right') {
+        return 'left-full bottom-0 ml-2 origin-bottom-left';
+    }
+
+    if (props.align === 'left') {
+        return 'mt-2 start-0 origin-top-left';
+    }
+
+    if (props.align === 'right') {
+        return 'mt-2 end-0 origin-top-right';
+    }
+
+    return 'mt-2 origin-top';
+});
 </script>
 
 <template>
@@ -50,12 +68,11 @@ const open = ref(false);
             <slot name="trigger" />
         </div>
 
-        <!-- Full Screen Dropdown Overlay -->
         <div
             v-show="open"
             class="fixed inset-0 z-40"
             @click="open = false"
-        ></div>
+        />
 
         <Transition
             enter-active-class="transition ease-out duration-200"
@@ -67,13 +84,12 @@ const open = ref(false);
         >
             <div
                 v-show="open"
-                class="absolute z-50 mt-2 rounded-md shadow-lg"
-                :class="[widthClass, alignmentClasses]"
-                style="display: none"
+                class="absolute z-50 rounded-md shadow-lg"
+                :class="[widthClass, positionClasses]"
                 @click="open = false"
             >
                 <div
-                    class="rounded-md ring-1 ring-black ring-opacity-5"
+                    class="rounded-md ring-1 ring-black/5"
                     :class="contentClasses"
                 >
                     <slot name="content" />

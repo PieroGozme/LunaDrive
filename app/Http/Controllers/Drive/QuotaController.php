@@ -66,7 +66,7 @@ class QuotaController extends Controller
             'priority_account_ids' => $data['priority_account_ids'] ?? [],
         ]);
 
-        return back()->with('success', 'Upload routing updated.');
+        return back()->with('success', 'Enrutado de subidas actualizado.');
     }
 
     public function sync(Request $request): RedirectResponse
@@ -76,6 +76,6 @@ class QuotaController extends Controller
             SyncDriveQuota::dispatch($account);
         }
 
-        return back()->with('success', 'Quota sync queued.');
+        return back()->with('success', 'Sincronización de cuota en cola.');
     }
 }

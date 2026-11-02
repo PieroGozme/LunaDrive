@@ -42,7 +42,7 @@ const closeModal = () => {
     <section class="space-y-6">
         <header>
             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                Delete Account
+                Eliminar cuenta
             </h2>
 
             <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
@@ -52,7 +52,7 @@ const closeModal = () => {
             </p>
         </header>
 
-        <DangerButton @click="confirmUserDeletion">Delete Account</DangerButton>
+        <DangerButton @click="confirmUserDeletion">Eliminar cuenta</DangerButton>
 
         <Modal :show="confirmingUserDeletion" @close="closeModal">
             <div class="p-6">
@@ -71,7 +71,7 @@ const closeModal = () => {
                 <div class="mt-6">
                     <InputLabel
                         for="password"
-                        value="Password"
+                        value="Contraseña"
                         class="sr-only"
                     />
 
@@ -81,7 +81,7 @@ const closeModal = () => {
                         v-model="form.password"
                         type="password"
                         class="mt-1 block w-3/4"
-                        placeholder="Password"
+                        placeholder="Contraseña"
                         @keyup.enter="deleteUser"
                     />
 
@@ -90,7 +90,7 @@ const closeModal = () => {
 
                 <div class="mt-6 flex justify-end">
                     <SecondaryButton @click="closeModal">
-                        Cancel
+                        Cancelar
                     </SecondaryButton>
 
                     <DangerButton
@@ -99,7 +99,7 @@ const closeModal = () => {
                         :disabled="form.processing"
                         @click="deleteUser"
                     >
-                        Delete Account
+                        Eliminar cuenta
                     </DangerButton>
                 </div>
             </div>

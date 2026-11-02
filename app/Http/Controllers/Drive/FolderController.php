@@ -35,7 +35,7 @@ class FolderController extends Controller
             'status' => 'active',
         ]);
 
-        return back()->with('success', 'Folder created.');
+        return back()->with('success', 'Carpeta creada.');
     }
 
     public function update(Request $request, Folder $folder): RedirectResponse
@@ -51,7 +51,7 @@ class FolderController extends Controller
 
         $folder->update($data);
 
-        return back()->with('success', 'Folder updated.');
+        return back()->with('success', 'Carpeta actualizada.');
     }
 
     public function destroy(Request $request, Folder $folder): RedirectResponse
@@ -63,6 +63,6 @@ class FolderController extends Controller
             'deleted_at' => now(),
         ]);
 
-        return back()->with('success', 'Folder moved to trash.');
+        return back()->with('success', 'Carpeta movida a la papelera.');
     }
 }

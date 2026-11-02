@@ -23,7 +23,7 @@ class FileController extends Controller
         $account = $router->selectAccount($request->user(), (int) $uploaded->getSize());
         $uploader->upload($account, $uploaded, $data['folder_id'] ?? null);
 
-        return back()->with('success', 'File uploaded.');
+        return back()->with('success', 'Archivo subido.');
     }
 
     public function update(Request $request, DriveFile $file): RedirectResponse
@@ -38,7 +38,7 @@ class FileController extends Controller
 
         $file->update($data);
 
-        return back()->with('success', 'File updated.');
+        return back()->with('success', 'Archivo actualizado.');
     }
 
     public function destroy(Request $request, DriveFile $file): RedirectResponse
@@ -50,7 +50,7 @@ class FileController extends Controller
             'deleted_at' => now(),
         ]);
 
-        return back()->with('success', 'File moved to trash.');
+        return back()->with('success', 'Archivo movido a la papelera.');
     }
 
     public function download(Request $request, DriveFile $file, GoogleDriveUploader $uploader): StreamedResponse

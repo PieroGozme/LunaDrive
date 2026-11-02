@@ -111,7 +111,7 @@ const submitRename = () => {
 };
 
 const removeItem = (item, type) => {
-    if (!confirm(`Move "${item.name}" to trash?`)) return;
+    if (!confirm(`¿Mover "${item.name}" a la papelera?`)) return;
     const url = type === 'folder' ? route('folders.destroy', item.id) : route('files.destroy', item.id);
     router.delete(url);
 };
@@ -120,12 +120,12 @@ const empty = computed(() => props.folders.length === 0 && props.files.length ==
 </script>
 
 <template>
-    <Head title="All Files" />
+    <Head title="Todos los archivos" />
 
     <DriveLayout>
         <template #header>
             <div class="flex items-center gap-2 text-ink-600">
-                <Link :href="route('files.index')" class="hover:text-luna-700">All Files</Link>
+                <Link :href="route('files.index')" class="hover:text-luna-700">Todos los archivos</Link>
                 <template v-for="crumb in breadcrumbs" :key="crumb.id">
                     <span>/</span>
                     <Link :href="route('files.index', { folder: crumb.id })" class="hover:text-luna-700">
@@ -138,10 +138,10 @@ const empty = computed(() => props.folders.length === 0 && props.files.length ==
         <div class="space-y-5">
             <div class="flex flex-col gap-4 rounded-3xl border border-ink-200/80 bg-white/80 p-5 shadow-sm backdrop-blur sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h1 class="text-2xl font-semibold tracking-tight text-ink-950">All Files</h1>
+                    <h1 class="text-2xl font-semibold tracking-tight text-ink-950">Todos los archivos</h1>
                     <p class="mt-1 text-sm text-ink-500">
-                        Virtual folders over your connected Google Drive pool.
-                        <span v-if="accountsCount === 0" class="text-amber-700"> Connect a Drive in Settings to upload.</span>
+                        Carpetas virtuales sobre tu pool de Google Drive conectado.
+                        <span v-if="accountsCount === 0" class="text-amber-700"> Conecta un Drive en Ajustes para subir archivos.</span>
                     </p>
                 </div>
                 <div class="flex flex-wrap items-center gap-2">
@@ -151,14 +151,14 @@ const empty = computed(() => props.folders.length === 0 && props.files.length ==
                         @click="showNewFolder = !showNewFolder"
                     >
                         <FolderPlus class="h-4 w-4" />
-                        New folder
+                        Nueva carpeta
                     </button>
                     <label
                         class="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-luna-600 px-3 py-2 text-sm font-medium text-white shadow-md shadow-luna-600/25 hover:bg-luna-700"
                         :class="{ 'pointer-events-none opacity-60': uploadForm.processing || accountsCount === 0 }"
                     >
                         <Upload class="h-4 w-4" />
-                        {{ uploadForm.processing ? 'Uploading…' : 'Upload' }}
+                        {{ uploadForm.processing ? 'Subiendo…' : 'Subir' }}
                         <input ref="uploadInput" type="file" class="hidden" @change="onFilePicked" />
                     </label>
                 </div>
@@ -172,7 +172,7 @@ const empty = computed(() => props.folders.length === 0 && props.files.length ==
                     <input
                         v-model="folderForm.name"
                         type="text"
-                        placeholder="Folder name"
+                        placeholder="Nombre de la carpeta"
                         class="flex-1 rounded-xl border-ink-200 text-sm"
                         required
                     />
@@ -181,7 +181,7 @@ const empty = computed(() => props.folders.length === 0 && props.files.length ==
                         class="rounded-xl bg-luna-600 px-4 py-2 text-sm font-medium text-white"
                         :disabled="folderForm.processing"
                     >
-                        Create
+                        Crear
                     </button>
                 </form>
             </div>
@@ -191,11 +191,11 @@ const empty = computed(() => props.folders.length === 0 && props.files.length ==
                     <input
                         v-model="search"
                         type="search"
-                        placeholder="Search files and folders"
+                        placeholder="Buscar archivos y carpetas"
                         class="w-full rounded-xl border-ink-200 text-sm"
                     />
                     <button type="submit" class="rounded-xl border border-ink-200 bg-white px-3 py-2 text-sm">
-                        Search
+                        Buscar
                     </button>
                 </form>
                 <div class="inline-flex rounded-xl border border-ink-200 bg-white p-1">
@@ -219,8 +219,8 @@ const empty = computed(() => props.folders.length === 0 && props.files.length ==
             </div>
 
             <div v-if="empty" class="rounded-3xl border border-dashed border-ink-300 bg-white/60 px-6 py-16 text-center">
-                <p class="text-lg font-medium text-ink-800">Nothing here yet</p>
-                <p class="mt-2 text-sm text-ink-500">Create a folder or upload your first file.</p>
+                <p class="text-lg font-medium text-ink-800">Aún no hay nada</p>
+                <p class="mt-2 text-sm text-ink-500">Crea una carpeta o sube tu primer archivo.</p>
             </div>
 
             <div v-else-if="viewMode === 'grid'" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -234,7 +234,7 @@ const empty = computed(() => props.folders.length === 0 && props.files.length ==
                         <FolderPlus class="h-5 w-5 text-white" />
                     </div>
                     <div class="truncate font-medium text-ink-900">{{ folder.name }}</div>
-                    <div class="text-xs text-ink-500">Folder</div>
+                    <div class="text-xs text-ink-500">Carpeta</div>
                 </Link>
                 <div
                     v-for="file in files"
@@ -247,9 +247,9 @@ const empty = computed(() => props.folders.length === 0 && props.files.length ==
                     <div class="truncate font-medium text-ink-900">{{ file.name }}</div>
                     <div class="text-xs text-ink-500">{{ formatBytes(file.size_bytes) }}</div>
                     <div class="mt-3 flex gap-2">
-                        <a :href="route('files.download', file.id)" class="rounded-lg border border-ink-200 px-2 py-1 text-xs">Download</a>
-                        <button type="button" class="rounded-lg border border-ink-200 px-2 py-1 text-xs" @click="startRename(file, 'file')">Rename</button>
-                        <button type="button" class="rounded-lg border border-rose-200 px-2 py-1 text-xs text-rose-700" @click="removeItem(file, 'file')">Delete</button>
+                        <a :href="route('files.download', file.id)" class="rounded-lg border border-ink-200 px-2 py-1 text-xs">Descargar</a>
+                        <button type="button" class="rounded-lg border border-ink-200 px-2 py-1 text-xs" @click="startRename(file, 'file')">Renombrar</button>
+                        <button type="button" class="rounded-lg border border-rose-200 px-2 py-1 text-xs text-rose-700" @click="removeItem(file, 'file')">Eliminar</button>
                     </div>
                 </div>
             </div>
@@ -258,10 +258,10 @@ const empty = computed(() => props.folders.length === 0 && props.files.length ==
                 <table class="min-w-full divide-y divide-ink-100 text-sm">
                     <thead class="bg-ink-50/80 text-left text-xs uppercase tracking-wide text-ink-500">
                         <tr>
-                            <th class="px-4 py-3 font-medium">Name</th>
-                            <th class="px-4 py-3 font-medium">Account</th>
-                            <th class="px-4 py-3 font-medium">Size</th>
-                            <th class="px-4 py-3 font-medium">Updated</th>
+                            <th class="px-4 py-3 font-medium">Nombre</th>
+                            <th class="px-4 py-3 font-medium">Cuenta</th>
+                            <th class="px-4 py-3 font-medium">Tamaño</th>
+                            <th class="px-4 py-3 font-medium">Actualizado</th>
                             <th class="px-4 py-3 font-medium"></th>
                         </tr>
                     </thead>
@@ -313,11 +313,11 @@ const empty = computed(() => props.folders.length === 0 && props.files.length ==
 
         <div v-if="renaming" class="fixed inset-0 z-50 flex items-center justify-center bg-ink-950/40 p-4">
             <form class="w-full max-w-md rounded-2xl bg-white p-5 shadow-xl" @submit.prevent="submitRename">
-                <h3 class="text-lg font-semibold text-ink-950">Rename</h3>
+                <h3 class="text-lg font-semibold text-ink-950">Renombrar</h3>
                 <input v-model="renameForm.name" type="text" class="mt-3 w-full rounded-xl border-ink-200 text-sm" required />
                 <div class="mt-4 flex justify-end gap-2">
-                    <button type="button" class="rounded-xl border border-ink-200 px-3 py-2 text-sm" @click="renaming = null">Cancel</button>
-                    <button type="submit" class="rounded-xl bg-luna-600 px-3 py-2 text-sm text-white">Save</button>
+                    <button type="button" class="rounded-xl border border-ink-200 px-3 py-2 text-sm" @click="renaming = null">Cancelar</button>
+                    <button type="submit" class="rounded-xl bg-luna-600 px-3 py-2 text-sm text-white">Guardar</button>
                 </div>
             </form>
         </div>

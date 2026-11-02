@@ -18,7 +18,7 @@ class UploadRouter
             ->get();
 
         if ($accounts->isEmpty()) {
-            throw new RuntimeException('Connect a Google Drive account before uploading.');
+            throw new RuntimeException('Conecta una cuenta de Google Drive antes de subir.');
         }
 
         $staleSeconds = config('lunadrive.quota_stale_seconds', 300);
@@ -38,7 +38,7 @@ class UploadRouter
         })->values();
 
         if ($eligible->isEmpty()) {
-            throw new RuntimeException('No connected account has enough free space for this file.');
+            throw new RuntimeException('Ninguna cuenta conectada tiene espacio suficiente para este archivo.');
         }
 
         return match ($policy->mode) {
