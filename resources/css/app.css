@@ -1,0 +1,41 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+@source '../**/*.vue';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-luna-50: #f0f7ff;
+    --color-luna-100: #e0effe;
+    --color-luna-200: #b9dffd;
+    --color-luna-300: #7cc5fb;
+    --color-luna-400: #36a7f6;
+    --color-luna-500: #0c8ce7;
+    --color-luna-600: #006fc5;
+    --color-luna-700: #0158a0;
+    --color-luna-800: #064b84;
+    --color-luna-900: #0b3f6e;
+    --color-luna-950: #072849;
+    --color-ink-50: #f6f7f9;
+    --color-ink-100: #eceef2;
+    --color-ink-200: #d5dae3;
+    --color-ink-300: #b1bbc9;
+    --color-ink-400: #8695ab;
+    --color-ink-500: #677891;
+    --color-ink-600: #526178;
+    --color-ink-700: #434f62;
+    --color-ink-800: #3a4352;
+    --color-ink-900: #343a46;
+    --color-ink-950: #22262f;
+}
+
+@layer base {
+    body {
+        @apply bg-ink-50 text-ink-900 antialiased;
+    }
+}
